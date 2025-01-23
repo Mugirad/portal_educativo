@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalFormSecuencia from './modal_form_secuencia';
 
 const SupervisionSecuencias: React.FC = () => {
@@ -46,6 +46,15 @@ const SupervisionSecuencias: React.FC = () => {
     setModalVisible(false);
     setRegistroSeleccionado(null);
   };
+
+  // Bloquear scroll cuando el modal esté abierto
+  useEffect(() => {
+    if (modalVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [modalVisible]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -178,7 +187,7 @@ const SupervisionSecuencias: React.FC = () => {
         <div className="bg-white shadow-lg rounded-lg p-4">
           <h2 className="text-xl font-bold text-gray-700 mb-4">Secuencias</h2>
           <table className="min-w-full table-auto border-collapse">
-            <thead className="bg-gradient-to-r from-gray-600 to-gray-900 text-white">
+            <thead className="bg-gradient-to-r from-gray-700 to-gray-900 text-white">
               <tr>
                 <th className="px-6 py-3 text-left font-semibold text-sm uppercase">ID</th>
                 <th className="px-6 py-3 text-left font-semibold text-sm uppercase">#Oficio</th>
@@ -187,33 +196,29 @@ const SupervisionSecuencias: React.FC = () => {
                 <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Asignatura</th>
                 <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Dirección</th>
                 <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Estado</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Acción</th>
+                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              {[
-                { id: 1, oficio: 'OF123', fecha: '2025-01-10', docente: 'Juan Pérez', asignatura: 'Matemáticas', direccion: 'Académica', estado: 'Aprobada' },
-                { id: 2, oficio: 'OF124', fecha: '2025-01-11', docente: 'María Gómez', asignatura: 'Física', direccion: 'Investigación', estado: 'Pendiente' },
-                { id: 3, oficio: 'OF125', fecha: '2025-01-12', docente: 'Carlos López', asignatura: 'Biología', direccion: 'Académica', estado: 'Rechazada' },
-              ].map((row, index) => (
+            <tbody className="text-sm font-light text-gray-700">
+              {registros.map((registro) => (
                 <tr
-                  key={row.id}
-                  className={`hover:bg-gray-100 cursor-pointer ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
+                  key={registro.id}
+                  className="border-t border-b hover:bg-gray-100 cursor-pointer"
                 >
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.id}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.oficio}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.fecha}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.docente}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.asignatura}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.direccion}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm">{row.estado}</td>
-                  <td className="px-6 py-3 border-b border-gray-200 text-sm text-center">
-                  <button
-                    onClick={() => abrirModal(row)}  // Aquí se pasa el registro a la función abrirModal
-                    className="bg-black text-white text-xs px-4 py-2 rounded-md hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-black"
-                  >
-                    Ver
-                  </button>
+                  <td className="px-6 py-3">{registro.id}</td>
+                  <td className="px-6 py-3">{registro.oficio}</td>
+                  <td className="px-6 py-3">{registro.fechaCaptura}</td>
+                  <td className="px-6 py-3">{registro.docente}</td>
+                  <td className="px-6 py-3">{registro.asignatura}</td>
+                  <td className="px-6 py-3">{registro.direccion}</td>
+                  <td className="px-6 py-3">{registro.estado}</td>
+                  <td className="px-6 py-3 text-center">
+                    <button
+                      onClick={() => abrirModal(registro)}
+                      className="px-4 py-2 text-xs bg-black text-white rounded-md hover:bg-orange-500 focus:ring-black"
+                    >
+                      Ver
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -224,10 +229,14 @@ const SupervisionSecuencias: React.FC = () => {
 
       {/* Modal */}
       {modalVisible && (
-        <ModalFormSecuencia
-          registro={registroSeleccionado}
-          onClose={cerrarModal}
-        />
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+          style={{ pointerEvents: 'none' }}
+        >
+          <div className="bg-white p-8 rounded-md shadow-lg z-60 pointer-events-auto">
+            <ModalFormSecuencia registro={registroSeleccionado} onClose={cerrarModal} />
+          </div>
+        </div>
       )}
     </div>
   );
