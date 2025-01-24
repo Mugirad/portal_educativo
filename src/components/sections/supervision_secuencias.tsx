@@ -228,10 +228,10 @@ const SupervisionSecuencias: React.FC = () => {
 
         {/* Tabla de Registros */}
         <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-4">Registros</h2>
+          <h2 className="text-xl font-bold text-gray-700 mb-4">Secuencias Didácticas</h2>
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-left bg-gray-100">
+              <tr className="text-left bg-gray-900 text-white ">
                 <th className="px-4 py-2">Oficio</th>
                 <th className="px-4 py-2">Fecha Captura</th>
                 <th className="px-4 py-2">Docente</th>
