@@ -79,7 +79,7 @@ const initialFormData: FormData = {
   nombre_firma: '',
   firma_academia: '',
   firma_coordinacion: '',
-  dia: '',
+  dia: 0,
   mes: '',
   anio: 2024,
 };
@@ -134,7 +134,7 @@ const HoursCounter: React.FC<{ value: number; onChange: (value: number) => void 
   );
 };
 
-export default function formato_secuencia() {
+export default function SecuenciaFormato() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
