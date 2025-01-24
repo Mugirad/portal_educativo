@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, ClipboardList, LogOut, User } from 'lucide-react';
+import { BookOpen, ClipboardList, LogOut, User, GraduationCap } from 'lucide-react';
 import SupervisionSecuencias from './sections/supervision_secuencias';
 import SecuenciaDidactica from './sections/secuencia_did';
 
@@ -19,7 +19,7 @@ function Dashboard({ userEmail, onLogout }: DashboardProps) {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <BookOpen className="h-8 w-8 text-blue-600" />
+                <GraduationCap  className="h-8 w-8 text-blue-600" />
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <button
