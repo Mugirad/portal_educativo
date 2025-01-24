@@ -31,11 +31,54 @@ const SupervisionSecuencias: React.FC = () => {
     setFiltrosAdicionales(filtrosAdicionales.filter((f) => f !== filtro));
   };
 
+  // Datos simulados
   const registros = [
     { id: 1, oficio: 'OF123', fechaCaptura: '2025-01-20', docente: 'Juan Pérez', asignatura: 'Matemáticas', direccion: 'Académica', estado: 'Aprobada' },
     { id: 2, oficio: 'OF124', fechaCaptura: '2025-01-21', docente: 'María Gómez', asignatura: 'Física', direccion: 'Investigación', estado: 'Pendiente' },
     { id: 3, oficio: 'OF125', fechaCaptura: '2025-01-22', docente: 'Carlos Sánchez', asignatura: 'Historia', direccion: 'Académica', estado: 'Rechazada' },
   ];
+
+  // Función para filtrar registros
+  const filtrarRegistros = () => {
+    return registros.filter((registro) => {
+      let pasaFiltro = true;
+
+      // Filtrado por Docente
+      if (docente && !registro.docente.toLowerCase().includes(docente.toLowerCase())) {
+        pasaFiltro = false;
+      }
+
+      // Filtrado por Dirección
+      if (direccion && !registro.direccion.toLowerCase().includes(direccion.toLowerCase())) {
+        pasaFiltro = false;
+      }
+
+      // Filtrado por Estado
+      if (estado && registro.estado !== estado) {
+        pasaFiltro = false;
+      }
+
+      // Filtrado por Semestre
+      if (semestre && !registro.id.toString().includes(semestre)) {
+        pasaFiltro = false;
+      }
+
+      // Filtrado por Rango de Fechas
+      if (fechaInicio && new Date(registro.fechaCaptura) < new Date(fechaInicio)) {
+        pasaFiltro = false;
+      }
+      if (fechaFin && new Date(registro.fechaCaptura) > new Date(fechaFin)) {
+        pasaFiltro = false;
+      }
+
+      // Filtrado por Asignatura
+      if (asignatura && !registro.asignatura.toLowerCase().includes(asignatura.toLowerCase())) {
+        pasaFiltro = false;
+      }
+
+      return pasaFiltro;
+    });
+  };
 
   const abrirModal = (registro: any) => {
     setRegistroSeleccionado(registro);
@@ -72,7 +115,7 @@ const SupervisionSecuencias: React.FC = () => {
                   type="text"
                   value={docente}
                   onChange={(e) => setDocente(e.target.value)}
-                  className="mt-1 w-full border border-gray-300 rounded-lg shadow-sm"
+                  className="mt-1 w-full border border-gray-300 rounded-lg shadow-sm pl-2"
                   placeholder="Buscar por docente"
                   maxLength={35}
                 />
@@ -83,7 +126,7 @@ const SupervisionSecuencias: React.FC = () => {
                   type="text"
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
-                  className="mt-1 w-full border border-gray-300 rounded-lg shadow-sm"
+                  className="mt-1 w-full border border-gray-300 rounded-lg shadow-sm pl-2"
                   placeholder="Buscar por dirección"
                   maxLength={20}
                 />
@@ -136,7 +179,7 @@ const SupervisionSecuencias: React.FC = () => {
                       type="text"
                       value={semestre}
                       onChange={(e) => setSemestre(e.target.value)}
-                      className="mt-1 w-1/6 mxs:w-full border-gray-300 rounded-lg shadow-sm"
+                      className="mt-1 w-1/6 mxs:w-full border-gray-300 rounded-lg shadow-sm pl-2"
                       placeholder="Buscar por semestre"
                     />
                   </div>
@@ -149,13 +192,13 @@ const SupervisionSecuencias: React.FC = () => {
                         type="date"
                         value={fechaInicio}
                         onChange={(e) => setFechaInicio(e.target.value)}
-                        className="mt-1 w-auto border-gray-300 rounded-lg shadow-sm"
+                        className="mt-1 w-auto border-gray-300 rounded-lg shadow-sm pl-2"
                       />
                       <input
                         type="date"
                         value={fechaFin}
                         onChange={(e) => setFechaFin(e.target.value)}
-                        className="mt-1 w-auto border-gray-300 rounded-lg shadow-sm"
+                        className="mt-1 w-auto border-gray-300 rounded-lg shadow-sm pl-2"
                       />
                     </div>
                   </div>
@@ -167,55 +210,50 @@ const SupervisionSecuencias: React.FC = () => {
                       type="text"
                       value={asignatura}
                       onChange={(e) => setAsignatura(e.target.value)}
-                      className="mt-1 w-auto mxs:w-full border-gray-300 rounded-lg shadow-sm"
+                      className="mt-1 w-full border-gray-300 rounded-lg shadow-sm pl-2"
                       placeholder="Buscar por asignatura"
                     />
                   </div>
                 )}
                 <button
                   onClick={() => eliminarFiltro(filtro)}
-                  className="text-red-500 hover:text-red-700 font-bold"
+                  className="text-red-500 text-sm ml-4"
                 >
-                  x
+                  Eliminar filtro
                 </button>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Tabla */}
-        <div className="bg-white shadow-lg rounded-lg p-4">
-          <h2 className="text-xl font-bold text-gray-700 mb-4">Secuencias</h2>
-          <table className="min-w-full table-auto border-collapse">
-            <thead className="bg-gradient-to-r from-gray-700 to-gray-900 text-white">
-              <tr>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">ID</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">#Oficio</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Fecha Captura</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Docente</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Asignatura</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Dirección</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Estado</th>
-                <th className="px-6 py-3 text-left font-semibold text-sm uppercase">Acciones</th>
+        {/* Tabla de Registros */}
+        <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-bold text-gray-700 mb-4">Registros</h2>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="text-left bg-gray-100">
+                <th className="px-4 py-2">Oficio</th>
+                <th className="px-4 py-2">Fecha Captura</th>
+                <th className="px-4 py-2">Docente</th>
+                <th className="px-4 py-2">Asignatura</th>
+                <th className="px-4 py-2">Dirección</th>
+                <th className="px-4 py-2">Estado</th>
+                <th className="px-4 py-2">Acción</th>
               </tr>
             </thead>
-            <tbody className="text-sm font-light text-gray-700">
-              {registros.map((registro) => (
-                <tr
-                  key={registro.id}
-                  className="border-t border-b hover:bg-gray-100 cursor-pointer"
-                >
-                  <td className="px-6 py-3">{registro.id}</td>
-                  <td className="px-6 py-3">{registro.oficio}</td>
-                  <td className="px-6 py-3">{registro.fechaCaptura}</td>
-                  <td className="px-6 py-3">{registro.docente}</td>
-                  <td className="px-6 py-3">{registro.asignatura}</td>
-                  <td className="px-6 py-3">{registro.direccion}</td>
-                  <td className="px-6 py-3">{registro.estado}</td>
-                  <td className="px-6 py-3 text-center">
+            <tbody>
+              {filtrarRegistros().map((registro) => (
+                <tr key={registro.id}>
+                  <td className="px-4 py-2">{registro.oficio}</td>
+                  <td className="px-4 py-2">{registro.fechaCaptura}</td>
+                  <td className="px-4 py-2">{registro.docente}</td>
+                  <td className="px-4 py-2">{registro.asignatura}</td>
+                  <td className="px-4 py-2">{registro.direccion}</td>
+                  <td className="px-4 py-2">{registro.estado}</td>
+                  <td className="px-4 py-2">
                     <button
                       onClick={() => abrirModal(registro)}
-                      className="px-4 py-2 text-xs bg-black text-white rounded-md hover:bg-orange-500 focus:ring-black"
+                      className="bg-black text-white px-4 py-2 rounded-lg hover:bg-orange-500"
                     >
                       Ver
                     </button>
@@ -227,12 +265,9 @@ const SupervisionSecuencias: React.FC = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      {modalVisible && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
-          style={{ pointerEvents: 'none' }}
-        >
+      {/* Modal de Detalles */}
+      {modalVisible && registroSeleccionado && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-md shadow-lg z-60 pointer-events-auto">
             <ModalFormSecuencia registro={registroSeleccionado} onClose={cerrarModal} />
           </div>
