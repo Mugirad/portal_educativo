@@ -84,31 +84,7 @@ const initialFormData: FormData = {
   anio: 2025,
 };
 
-const CommentBalloon: React.FC<{ initialText: string }> = ({ initialText }) => {
-  const [text, setText] = useState(initialText);
 
-  const handleFocus = useCallback(() => {
-    if (text === initialText) {
-      setText('');
-    }
-  }, [text, initialText]);
-
-  const handleBlur = useCallback(() => {
-    if (text.trim() === '') {
-      setText(initialText);
-    }
-  }, [initialText]);
-
-  return (
-    <div
-      className="relative bg-yellow-100 rounded-lg p-2 mt-2 shadow-md"
-      contentEditable
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      dangerouslySetInnerHTML={{ __html: text }}
-    />
-  );
-};
 
 const HoursCounter: React.FC<{ value: number; onChange: (value: number) => void }> = ({ value, onChange }) => {
   const decrease = useCallback(() => {
@@ -212,7 +188,6 @@ export default function SecuenciaFormato() {
               />
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Programa Educativo, Ciclo y Docente..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -244,7 +219,6 @@ export default function SecuenciaFormato() {
               <HoursCounter value={formData.horas} onChange={handleHoursChange} />
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Asignatura, Aprendizajes Esperados y Horas Clase..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -258,7 +232,6 @@ export default function SecuenciaFormato() {
               className="w-full p-2 border rounded h-24"
             ></textarea>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Impacto en el Perfil de Egreso..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -272,7 +245,6 @@ export default function SecuenciaFormato() {
               className="w-full p-2 border rounded h-24"
             ></textarea>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Competencia Sello..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -337,7 +309,6 @@ export default function SecuenciaFormato() {
               />
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Estrategia de Evaluación Integral..." />
         </div>
 
         <h3 className="text-xl font-bold mb-2">SECUENCIA DIDÁCTICA</h3>
@@ -376,7 +347,6 @@ export default function SecuenciaFormato() {
               ></textarea>
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Bienvenida, Contextualización e Introducción..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -410,7 +380,6 @@ export default function SecuenciaFormato() {
               className="w-full p-2 border rounded"
             />
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Tema y Subtemas..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -470,7 +439,6 @@ export default function SecuenciaFormato() {
               ></textarea>
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Objetivo, Evidencia y Actividades de Aprendizaje..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -529,7 +497,6 @@ export default function SecuenciaFormato() {
               />
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Actividad Final y Evaluación..." />
         </div>
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
@@ -569,7 +536,6 @@ export default function SecuenciaFormato() {
               />
             </div>
           </div>
-          <CommentBalloon initialText="Agregar comentario sobre Nombre y Firma del Docente y Autorización..." />
         </div>
 
         <div className="mb-4">
@@ -605,14 +571,8 @@ export default function SecuenciaFormato() {
             />.
           </p>
           <div className="flex space-x-4">
-            <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg shadow-xl">
-              Borrador
-            </button>
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-xl">
+            <button className="flex flex-col-1 items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-xl">
               Enviar
-            </button>
-            <button className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg shadow-xl">
-              Correcciones
             </button>
           </div>
         </div>
