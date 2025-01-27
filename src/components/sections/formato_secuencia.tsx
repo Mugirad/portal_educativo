@@ -81,7 +81,7 @@ const initialFormData: FormData = {
   firma_coordinacion: '',
   dia: 0,
   mes: '',
-  anio: 2024,
+  anio: 2025,
 };
 
 const CommentBalloon: React.FC<{ initialText: string }> = ({ initialText }) => {
@@ -149,9 +149,10 @@ export default function SecuenciaFormato() {
   return (
     <div className="font-sans text-gray-800 rounded-lg bg-gray-100">
       <div className="max-w-7xl mx-auto p-4">
-        <div className="rounded-t-lg bg-orange-500 text-white p-4 flex flex-wrap items-center justify-between mb-4">
-          <img src="../public/logotipo_universidad.svg" alt="Logo" className="w-24 h-auto mb-2 md:mb-0" />
+        <div className="rounded-t-lg bg-orange-500 text-white p-4 flex flex-wrap items-center justify-between mb-4 inset-4 outline outline-2 outline-white outline-offset-[-8px]">
+          <img src="../public/Diseño2.svg" alt="Logo" className="w-24 h-auto mb-2 md:mb-0 " />
           <h1 className="text-xl md:text-2xl font-bold">UNIVERSIDAD PABLO GUARDADO CHÁVEZ</h1>
+          <img src="../public/Diseño.svg" alt="Logo" className="w-56 h-auto mb-2 md:mb-1" />
         </div>
         <h2 className="text-2xl font-bold mb-2 text-center">FORMATO DE SECUENCIA DIDÁCTICA</h2>
         <p className="mb-4 text-center italic">Modelo educativo del Sistema UPGCH Competencias para la vida</p>
@@ -414,7 +415,7 @@ export default function SecuenciaFormato() {
 
         <div className="bg-white shadow-md rounded-lg overflow-hidden mb-4">
           <div className="bg-gray-800 text-white p-2 font-bold">OBJETIVO DE APRENDIZAJE (14) | EVIDENCIA DE APRENDIZAJE (15) | ACTIVIDADES DE APRENDIZAJE (16)</div>
-          <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block bg-gray-200 p-2 mb-2 font-bold rounded-lg" htmlFor="objetivo">Objetivo:</label>
               <textarea
@@ -424,8 +425,6 @@ export default function SecuenciaFormato() {
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded h-24"
               ></textarea>
-            </div>
-            <div>
               <label className="block bg-gray-200 p-2 mb-2 font-bold rounded-lg" htmlFor="evidencia">Evidencia:</label>
               <textarea
                 id="evidencia"
@@ -435,13 +434,13 @@ export default function SecuenciaFormato() {
                 className="w-full p-2 border rounded h-24 mb-2"
               ></textarea>
               <label className="block bg-gray-200 p-2 mb-2 font-bold rounded-lg" htmlFor="instrumento">Instrumento de evaluación:</label>
-              <input
+              <textarea
                 type="text"
                 id="instrumento"
                 name="instrumento"
                 value={formData.instrumento}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded h-24 mb-2"
               />
             </div>
             <div>
@@ -451,7 +450,7 @@ export default function SecuenciaFormato() {
                 name="actividad_inicio"
                 value={formData.actividad_inicio}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded h-16 mb-2"
+                className="w-full p-2 border rounded h-24 mb-2"
               ></textarea>
               <div className="bg-gray-200 p-2 mb-2 font-bold rounded-lg">DESARROLLO</div>
               <textarea
@@ -459,7 +458,7 @@ export default function SecuenciaFormato() {
                 name="actividad_desarrollo"
                 value={formData.actividad_desarrollo}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded h-16 mb-2"
+                className="w-full p-2 border rounded h-24 mb-2"
               ></textarea>
               <div className="bg-gray-200 p-2 mb-2 font-bold rounded-lg">CIERRE</div>
               <textarea
@@ -467,7 +466,7 @@ export default function SecuenciaFormato() {
                 name="actividad_cierre"
                 value={formData.actividad_cierre}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded h-16"
+                className="w-full p-2 border rounded h-24 mb-2"
               ></textarea>
             </div>
           </div>
@@ -619,9 +618,8 @@ export default function SecuenciaFormato() {
         </div>
 
         <footer className="text-center">
-          <img src="../public/modelo.svg" alt="Modelo Educativo Logo" className="w-260 mx-auto mb-2" />
-          <p className="font-bold">WWW.UPGCH.MX</p>
-          <p className="text-sm">Libramiento Norte Oriente No. 3450 Fracc. Residencial Las Palmas, Tuxtla Gutiérrez, Chiapas. Tel. (961)61 4 11 12</p>
+          <p className='font-semibold'><a href="http://www.upgch.mx">www.upgch.mx</a></p>
+          <p className="">Libramiento Norte Oriente No. 3450 Fracc. Residencial Las Palmas, Tuxtla Gutiérrez, Chiapas. <p className="font-semibold">Tel. (961)61 4 11 12</p></p>
         </footer>
       </div>
     </div>
