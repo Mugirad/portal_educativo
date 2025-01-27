@@ -20,6 +20,7 @@ function Dashboard({ userEmail, onLogout }: DashboardProps) {
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
                 <GraduationCap  className="h-8 w-8 text-blue-600" />
+                <span className="bg-blue-200 m-2 text-blue-600 text-xs font-medium me-2 px-2 py-1 rounded-xl  dark:text-blue-300 dark:bg-gray-700 border border-blue-300">v.Alpha</span>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <button
